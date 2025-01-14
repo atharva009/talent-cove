@@ -1,10 +1,29 @@
+import { Link, useLocation } from "react-router-dom";
+
 const NavLinks = () => {
+  const links = [
+    { name: "Find Jobs", url: "find-jobs" },
+    { name: "Find Talent", url: "find-talent" },
+    { name: "Post Job", url: "post-job" },
+    { name: "About Us", url: "about-us" },
+  ];
+
+  const location = useLocation();
+
   return (
-    <div className="flex gap-10">
-      <a href="">Find Jobs</a>
-      <a href="">Find Talent</a>
-      <a href="">Post Job</a>
-      <a href="">About Us</a>
+    <div className="flex gap-10 text-mine-shaft-300 h-full items-center">
+      {links.map((link, index) => (
+        <div
+          key={index}
+          className={`${
+            location.pathname === `/${link.url}`
+              ? "border-bright-sun-400 text-bright-sun-400"
+              : "border-transparent"
+          } border-t-[3px] h-full flex items-center`}
+        >
+          <Link to={`/${link.url}`}>{link.name}</Link>
+        </div>
+      ))}
     </div>
   );
 };

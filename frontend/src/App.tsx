@@ -2,7 +2,7 @@ import './App.css'
 import { createTheme, MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css';
 import HomePage from './Pages/HomePage';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   const theme = createTheme({
@@ -15,11 +15,13 @@ function App() {
     <>
       <MantineProvider theme={theme}>
         <BrowserRouter>
-          <HomePage />
+        <Routes>
+          <Route path="*" element={<HomePage />} />
+        </Routes>
         </BrowserRouter>
       </MantineProvider>
     </>
   )
 }
 
-export default App
+export default App;
