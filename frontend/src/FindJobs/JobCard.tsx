@@ -6,7 +6,7 @@ interface JobCardProps {
   jobTitle: string;
   applicants: number;
   experience: string;
-  jobType: string;
+  employmentType: string;
   location: string;
   description: string;
   salary: string;
@@ -21,7 +21,7 @@ const JobCard = (props: JobCardProps) => {
           <div className="p-2 bg-mine-shaft-200 rounded-md">
             <img className="h-7" src={`/Icons/${props.company}.png`} alt="" />
           </div>
-          <div>
+          <div className="flex flex-col gap-1">
             <div className="font-semibold">{props.jobTitle}</div>
             <div className="text-xs text-mine-shaft-300">
               {props.company} &#x2022; {props.applicants} Applicants
@@ -32,7 +32,7 @@ const JobCard = (props: JobCardProps) => {
       </div>
       <div className="flex gap-2 [&>div]:py-1 [&>div]:px-2 [&>div]:bg-mine-shaft-800 [&>div]:text-bright-sun-400 [&>div]:rounded-md text-xs">
         <div>{props.experience}</div>
-        <div>{props.jobType}</div>
+        <div>{props.employmentType}</div>
         <div>{props.location}</div>
       </div>
       <Text
@@ -43,7 +43,7 @@ const JobCard = (props: JobCardProps) => {
       </Text>
       <Divider size="xs" color="mineShaft.7" />
       <div className="flex justify-between items-center">
-        <div className="font-semibold text-mine-shaft-200">{props.salary}</div>
+        <div className="font-semibold text-mine-shaft-200">${props.salary}</div>
         <div className="flex gap-1 text-mine-shaft-400 text-xs items-center">
           <IconClockHour3 className="h-5 w-5" stroke={1.5} /> {props.postedDaysAgo} days ago
         </div>
