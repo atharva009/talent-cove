@@ -9,6 +9,11 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import FindTalent from "./Pages/FindTalent";
 import TalentProfile from "./Pages/TalentProfile";
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import MyApplications from "./Pages/MyApplications";
+import MyProfile from "./Pages/MyProfile";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const theme = createTheme({
@@ -45,16 +50,22 @@ function App() {
   return (
     <>
       <MantineProvider defaultColorScheme="dark" theme={theme}>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/find-jobs" element={<FindJobs />} />
-            <Route path="/find-talent" element={<FindTalent />} />
-            <Route path="/talent-profile" element={<TalentProfile />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route path="/find-jobs" element={<FindJobs />} />
+              <Route path="/find-talent" element={<FindTalent />} />
+              <Route path="/talent-profile" element={<TalentProfile />} />
+              <Route path="/my-applications" element={<MyApplications />} />
+              <Route path="/my-profile" element={<MyProfile />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </AuthProvider>
       </MantineProvider>
     </>
   );

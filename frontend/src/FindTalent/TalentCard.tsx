@@ -3,6 +3,7 @@ import { IconHeart, IconMapPin } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 interface TalentCardProps {
+  id?: number;
   image: string;
   name: string;
   role: string;
@@ -54,7 +55,7 @@ const TalentCard = (props: TalentCardProps) => {
       </div>
       <Divider size="xs" color="mineShaft.7" />
       <div className="flex [&>*]:w-1/2 [&>*]:p-1">
-        <Link to="/talent-profile">
+        <Link to={`/talent-profile?id=${props.id || 1}`}>
           <Button color="brightSun.4" variant="outline" fullWidth>Profile</Button>
         </Link>
         <div>

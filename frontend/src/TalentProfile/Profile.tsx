@@ -2,8 +2,20 @@ import { Button, Divider } from "@mantine/core";
 import { IconBriefcase, IconMapPin } from "@tabler/icons-react";
 import ExperienceCard from "./ExperienceCard";
 import CertificationsCard from "./CertificationsCard";
+import { TalentProfileDTO } from "../services/api";
 
-const Profile = (props: any) => {
+interface ProfileProps {
+  name: string;
+  role: string;
+  company: string;
+  location: string;
+  about: string;
+  skills: string[];
+  experience: TalentProfileDTO["experience"];
+  certifications: TalentProfileDTO["certifications"];
+}
+
+const Profile = (props: ProfileProps) => {
   return (
     <div className="w-2/3">
       <div className="relative">
@@ -55,18 +67,26 @@ const Profile = (props: any) => {
       <div className="px-3">
         <div className="text-2xl font-semibold mb-5">Experience</div>
         <div className="flex flex-col gap-8">
-          {props.experience?.map((experience: any, index: number) => (
-            <ExperienceCard key={index} {...experience} />
-          ))}
+          {props.experience && props.experience.length > 0 ? (
+            props.experience.map((experience, index: number) => (
+              <ExperienceCard key={index} {...experience} />
+            ))
+          ) : (
+            <div className="text-mine-shaft-400 text-sm">No experience listed</div>
+          )}
         </div>
       </div>
-      <Divider mx={"xs"} my={"xl"} />
+      <Divider mx={"xs"} my="xl" />
       <div className="px-3">
         <div className="text-2xl font-semibold mb-5">Certifications</div>
         <div className="flex flex-col gap-8">
-          {props.certifications?.map((certification: any, index: number) => (
-            <CertificationsCard key={index} {...certification} />
-          ))}
+          {props.certifications && props.certifications.length > 0 ? (
+            props.certifications.map((certification, index: number) => (
+              <CertificationsCard key={index} {...certification} />
+            ))
+          ) : (
+            <div className="text-mine-shaft-400 text-sm">No certifications listed</div>
+          )}
         </div>
       </div>
     </div>

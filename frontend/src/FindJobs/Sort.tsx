@@ -9,7 +9,11 @@ const opt = [
   "Salary (High to Low)",
 ];
 
-const Sort = () => {
+interface SortProps {
+  onSortChange?: (sortBy: string) => void;
+}
+
+const Sort = ({ onSortChange }: SortProps) => {
   const [selectedItem, setSelectedItem] = useState<string | null>("Relevance");
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -29,6 +33,9 @@ const Sort = () => {
       onOptionSubmit={(val) => {
         setSelectedItem(val);
         combobox.closeDropdown();
+        if (onSortChange) {
+          onSortChange(val);
+        }
       }}
     >
       <Combobox.Target>

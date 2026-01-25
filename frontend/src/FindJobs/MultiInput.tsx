@@ -14,6 +14,7 @@ interface MultiInputProps {
   options?: string[];
   icon?: React.ElementType;
   title: string;
+  onValueChange?: (value: string) => void;
 }
 
 const MultiInput = (props: MultiInputProps) => {
@@ -37,18 +38,31 @@ const MultiInput = (props: MultiInputProps) => {
 
     if (val === "$create" && !data.includes(search)) {
       setData((current) => [...current, search]);
-      setValue((current) => [...current, search]);
+      const newValue = [...value, search];
+      setValue(newValue);
+      if (props.onValueChange && newValue.length > 0) {
+        props.onValueChange(newValue[0]);
+      }
     } else {
-      setValue((current) =>
-        current.includes(val)
-          ? current.filter((v) => v !== val)
-          : [...current, val]
-      );
+      const newValue = value.includes(val)
+        ? value.filter((v) => v !== val)
+        : [val]; // Only allow one selection
+      setValue(newValue);
+      if (props.onValueChange && newValue.length > 0) {
+        props.onValueChange(newValue[0]);
+      } else if (props.onValueChange && newValue.length === 0) {
+        props.onValueChange("");
+      }
     }
   };
 
-  const handleValueRemove = (val: string) =>
-    setValue((current) => current.filter((v) => v !== val));
+  const handleValueRemove = (val: string) => {
+    const newValue = value.filter((v) => v !== val);
+    setValue(newValue);
+    if (props.onValueChange) {
+      props.onValueChange(newValue.length > 0 ? newValue[0] : "");
+    }
+  };
 
   const values = value.slice(0, 1).map((item) => (
     <Pill key={item} withRemoveButton onRemove={() => handleValueRemove(item)}>
